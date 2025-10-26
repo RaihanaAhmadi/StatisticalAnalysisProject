@@ -1,164 +1,58 @@
 
 install.packages("tidyverse")
 library(tidyverse)
-#> ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-#> ✔ dplyr     1.1.4     ✔ readr     2.1.5
-#> ✔ forcats   1.0.0     ✔ stringr   1.5.1
-#> ✔ ggplot2   3.5.1     ✔ tibble    3.2.1
-#> ✔ lubridate 1.9.4     ✔ tidyr     1.3.1
-#> ✔ purrr     1.0.4     
-#> ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-#> ✖ dplyr::filter() masks stats::filter()
-#> ✖ dplyr::lag()    masks stats::lag()
-#> ℹ Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
+itc255 = read.csv("https://raw.githubusercontent.com/RaihanaAhmadi/R-Project/88a85b6e64249ab62251719444c7d08f480fcf0f/Raihana_Ahmadi_itc255.csv")
+head(itc255)
+colnames(itc255)
 
-mpg
-#> # A tibble: 234 × 11
-#>   manufacturer model displ  year   cyl trans      drv     cty   hwy fl    class 
-#>   <chr>        <chr> <dbl> <int> <int> <chr>      <chr> <int> <int> <chr> <chr> 
-#> 1 audi         a4      1.8  1999     4 auto(l5)   f        18    29 p     compa…
-#> 2 audi         a4      1.8  1999     4 manual(m5) f        21    29 p     compa…
-#> 3 audi         a4      2    2008     4 manual(m6) f        20    31 p     compa…
-#> 4 audi         a4      2    2008     4 auto(av)   f        21    30 p     compa…
-#> 5 audi         a4      2.8  1999     6 auto(l5)   f        16    26 p     compa…
-#> 6 audi         a4      2.8  1999     6 manual(m5) f        18    26 p     compa…
-#> # ℹ 228 more rows
+#Creating a ggplot
+install.packages("ggplot2")
+library(ggplot2)
 
-ggplot(data = mpg) + 
-  geom_point(mapping = aes(x = displ, y = hwy))
+ggplot(data = itc255) + 
+  geom_point(mapping = aes(x = Height.cm., y = Age))
 
-ggplot(data = <DATA>) + 
-  <GEOM_FUNCTION>(mapping = aes(<MAPPINGS>))
+#Scatter
+ggplot(data = itc255, mapping = aes(x = Gender, y = Age, color = Sport)) +
+  geom_point()
+         
+ggplot(data = itc255)
 
-ggplot(data = mpg)
-
-ggplot(data = mpg) + 
-  geom_point(mapping = aes(x = displ, y = hwy, color = class))
-
-ggplot(data = mpg) + 
-  geom_point(mapping = aes(x = displ, y = hwy, size = class))
-#> Warning: Using size for a discrete variable is not advised.
-
-# Left
-ggplot(data = mpg) + 
-  geom_point(mapping = aes(x = displ, y = hwy, alpha = class))
-
-# Right
-ggplot(data = mpg) + 
-  geom_point(mapping = aes(x = displ, y = hwy, shape = class))
-
-ggplot(data = mpg) + 
-  geom_point(mapping = aes(x = displ, y = hwy), color = "blue")
-
-ggplot(data = mpg) + 
-  geom_point(mapping = aes(x = displ, y = hwy)) + 
-  facet_wrap(~ class, nrow = 2)
-
-ggplot(data = mpg) + 
-  geom_point(mapping = aes(x = displ, y = hwy)) + 
-  facet_grid(drv ~ cyl)
-
-# left
-ggplot(data = mpg) + 
-  geom_point(mapping = aes(x = displ, y = hwy))
-
-# right
-ggplot(data = mpg) + 
-  geom_smooth(mapping = aes(x = displ, y = hwy))
-
-ggplot(data = mpg) + 
-  geom_smooth(mapping = aes(x = displ, y = hwy, linetype = drv))
-
-ggplot(data = mpg) +
-  geom_smooth(mapping = aes(x = displ, y = hwy))
-
-ggplot(data = mpg) +
-  geom_smooth(mapping = aes(x = displ, y = hwy, group = drv))
-
-ggplot(data = mpg) +
-  geom_smooth(
-    mapping = aes(x = displ, y = hwy, color = drv),
-    show.legend = FALSE
-  )
-
-ggplot(data = mpg) + 
-  geom_point(mapping = aes(x = displ, y = hwy)) +
-  geom_smooth(mapping = aes(x = displ, y = hwy))
-
-ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) + 
-  geom_point() + 
+ggplot(data = itc255, mapping = aes(x = Gender, y = Height.cm.)) +
+  geom_point(color = "blue")+
+  geom_smooth(color = "red")
+theme_classic()+
+  ggtitle("Height vs Gender")+
+  xlab("Gender")+
+  ylab("Height")
+ggplot(data = itc255, mapping = aes(x = "LevelOfSatisfaction", y = "Gender")) +
+  geom_point()+
   geom_smooth()
 
-ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) + 
-  geom_point(mapping = aes(color = class)) + 
-  geom_smooth()
+ggplot(data = itc255,mapping =  aes(x = Height.cm., y = Age)) +
+  geom_point(color = "blue") +
+  geom_smooth(method = "lm", color = "red") +
+  ggtitle("Age vs Height") +
+  xlab("Height (cm)") +
+  ylab("Age (years)") +
+  theme_classic()
+  
+#Barchart
+ggplot(data = itc255, mapping =  aes(x = Level.of.Satisfaction, fill = Gender)) +
+  geom_bar(position = "dodge")
 
-ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) + 
-  geom_point(mapping = aes(color = class)) + 
-  geom_smooth(data = filter(mpg, class == "subcompact"), se = FALSE)
-
-ggplot(data = diamonds) + 
-  geom_bar(mapping = aes(x = cut))
-
-ggplot(data = diamonds) + 
-  stat_count(mapping = aes(x = cut))
-
-ggplot(data = diamonds) + 
-  stat_summary(
-    mapping = aes(x = cut, y = depth),
-    fun.min = min,
-    fun.max = max,
-    fun = median
-  )
-
-ggplot(data = diamonds) + 
-  geom_bar(mapping = aes(x = cut, colour = cut))
-ggplot(data = diamonds) + 
-  geom_bar(mapping = aes(x = cut, fill = cut))
-
-ggplot(data = diamonds) + 
-  geom_bar(mapping = aes(x = cut, fill = clarity))
-
-ggplot(data = diamonds, mapping = aes(x = cut, fill = clarity)) + 
-  geom_bar(alpha = 1/5, position = "identity")
-ggplot(data = diamonds, mapping = aes(x = cut, colour = clarity)) + 
-  geom_bar(fill = NA, position = "identity")
-
-ggplot(data = diamonds) + 
-  geom_bar(mapping = aes(x = cut, fill = clarity), position = "fill")
-
-ggplot(data = diamonds) + 
-  geom_bar(mapping = aes(x = cut, fill = clarity), position = "dodge")
-
-ggplot(data = mpg) + 
-  geom_point(mapping = aes(x = displ, y = hwy), position = "jitter")
-
-ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) + 
+#Line Plots
+ggplot(data = itc255, mapping = aes(x = Age, y = Height.cm.)) +
+  geom_line() +
   geom_point()
 
-ggplot(data = mpg, mapping = aes(x = class, y = hwy)) + 
+#Histogram
+ggplot(data = itc255, mapping =  aes(x = Age)) +
+  geom_histogram(binwidth = 2, fill = "skyblue", color = "black")
+
+#BoxPlot
+ggplot(data = itc255,mapping =  aes(x = Gender, y = Height.cm., fill = Gender)) +
   geom_boxplot()
-ggplot(data = mpg, mapping = aes(x = class, y = hwy)) + 
-  geom_boxplot() +
-  coord_flip()
 
-nz <- map_data("nz")
 
-ggplot(nz, aes(long, lat, group = group)) +
-  geom_polygon(fill = "white", colour = "black")
 
-ggplot(nz, aes(long, lat, group = group)) +
-  geom_polygon(fill = "white", colour = "black") +
-  coord_quickmap()
-
-bar <- ggplot(data = diamonds) + 
-  geom_bar(
-    mapping = aes(x = cut, fill = cut), 
-    show.legend = FALSE,
-    width = 1
-  ) + 
-  theme(aspect.ratio = 1) +
-  labs(x = NULL, y = NULL)
-
-bar + coord_flip()
-bar + coord_polar()
